@@ -191,6 +191,10 @@ export default async function callback(req, res) {
       const verificationToken = req.query.token
       const email = req.query.email
 
+      if (req.method === "HEAD") {
+        return res.redirect(`${baseUrl}${basePath}/error?error=Verification`)
+      }
+      
       // Verify email and verification token exist in database
       const invite = await getVerificationRequest(
         email,
