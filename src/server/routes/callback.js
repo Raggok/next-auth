@@ -26,6 +26,8 @@ export default async function callback(req, res) {
     logger,
   } = req.options
 
+  console.log(req.method, baseUrl, basePath)
+
   // Get session ID (if set)
   const sessionToken = req.cookies?.[cookies.sessionToken.name] ?? null
 
@@ -190,7 +192,7 @@ export default async function callback(req, res) {
       } = adapterErrorHandler(await adapter.getAdapter(req.options), logger)
       const verificationToken = req.query.token
       const email = req.query.email
-      
+
       if (req.method === "HEAD") {
         return res.redirect(`${baseUrl}${basePath}/error?error=Verification`)
       }
@@ -340,7 +342,8 @@ export default async function callback(req, res) {
     let userObjectReturnedFromAuthorizeHandler
     try {
       userObjectReturnedFromAuthorizeHandler = await provider.authorize(
-        credentials, {...req, options: {}, cookies: {}}
+        credentials,
+        { ...req, options: {}, cookies: {} }
       )
       if (!userObjectReturnedFromAuthorizeHandler) {
         return res

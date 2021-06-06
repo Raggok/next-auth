@@ -40,6 +40,7 @@ async function callback(req, res) {
     },
     logger
   } = req.options;
+  console.log(req.method, baseUrl, basePath);
   const sessionToken = (_req$cookies$cookies$ = (_req$cookies = req.cookies) === null || _req$cookies === void 0 ? void 0 : _req$cookies[cookies.sessionToken.name]) !== null && _req$cookies$cookies$ !== void 0 ? _req$cookies$cookies$ : null;
 
   if (provider.type === "oauth") {
